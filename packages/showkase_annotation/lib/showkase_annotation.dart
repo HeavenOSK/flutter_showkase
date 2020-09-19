@@ -11,7 +11,8 @@ enum ShowkaseThemeType {
 /// Annotating a function with this annotation will flag it to add
 /// `showkase` app.
 ///
-/// This annotation expects only function which returns [ThemeData].
+/// This annotation expects only function which returns [ThemeData]
+/// and has no argument.
 class ShowkaseTheme {
   const ShowkaseTheme.light() : type = ShowkaseThemeType.light;
   const ShowkaseTheme.dark() : type = ShowkaseThemeType.dark;
@@ -24,7 +25,8 @@ class ShowkaseTheme {
 /// Annotating a function with this annotation will flag it to add
 /// `showkase` app.
 ///
-/// This annotation expects only function which returns [Widget].
+/// This annotation expects only function which returns [Widget] and
+/// has no argument.
 class ShowkaseComponent {
   const ShowkaseComponent(this.name);
 
