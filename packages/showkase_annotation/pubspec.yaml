@@ -1,9 +1,0 @@
-name: showkase_annotation
-description: Annotations for the showkase code-generator.
-version: 0.1.0
-homepage: https://github.com/HeavenOSK/flutter_showkase
-authors:
-  - Ryunosuke Watanabe <heavenosk@gmail.com>
-
-environment:
-  sdk: ">=2.7.0 <3.0.0"
