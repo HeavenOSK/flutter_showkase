@@ -18,7 +18,6 @@ class ColorSchemeSliverList extends StatelessWidget {
           child: Row(
             children: [
               _ColorSchemeItem(
-                name: 'primary',
                 color: ShowkaseColor('primary', themeData.colorScheme.primary),
                 variantColor: ShowkaseColor(
                     'primaryVariant', themeData.colorScheme.primaryVariant),
@@ -26,7 +25,6 @@ class ColorSchemeSliverList extends StatelessWidget {
               ),
               const SizedBox(width: mediumPadding),
               _ColorSchemeItem(
-                name: 'secondary',
                 color:
                     ShowkaseColor('secondary', themeData.colorScheme.secondary),
                 variantColor: ShowkaseColor(
@@ -35,20 +33,17 @@ class ColorSchemeSliverList extends StatelessWidget {
               ),
               const SizedBox(width: mediumPadding),
               _ColorSchemeItem(
-                name: 'surface',
                 color: ShowkaseColor('surface', themeData.colorScheme.surface),
                 onColor: themeData.colorScheme.onSurface,
               ),
               const SizedBox(width: mediumPadding),
               _ColorSchemeItem(
-                name: 'background',
                 color: ShowkaseColor(
                     'background', themeData.colorScheme.background),
                 onColor: themeData.colorScheme.onBackground,
               ),
               const SizedBox(width: mediumPadding),
               _ColorSchemeItem(
-                name: 'error',
                 color: ShowkaseColor('error', themeData.colorScheme.error),
                 onColor: themeData.colorScheme.onError,
               ),
@@ -63,13 +58,11 @@ class ColorSchemeSliverList extends StatelessWidget {
 class _ColorSchemeItem extends StatelessWidget {
   const _ColorSchemeItem({
     Key key,
-    @required this.name,
     @required this.color,
     this.variantColor,
     @required this.onColor,
   }) : super(key: key);
 
-  final String name;
   final ShowkaseColor color;
   final ShowkaseColor variantColor;
   final Color onColor;
@@ -91,7 +84,7 @@ class _ColorSchemeItem extends StatelessWidget {
                   Align(
                     alignment: Alignment.topLeft,
                     child: Text(
-                      name,
+                      color.name,
                       style: theme.textTheme.headline6.copyWith(
                         color: onColor,
                       ),
@@ -107,7 +100,7 @@ class _ColorSchemeItem extends StatelessWidget {
                     ),
                     alignment: Alignment.center,
                     child: Text(
-                      name.characters.first,
+                      color.name.characters.first,
                       style: theme.textTheme.headline6.copyWith(
                         color: color.value,
                       ),

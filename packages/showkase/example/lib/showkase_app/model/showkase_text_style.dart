@@ -11,7 +11,7 @@ class ShowkaseTextStyle implements Searchable {
 
   @override
   List<String> get keywords => [
-        name.toLowerCase(),
-        '$ShowkaseTextStyle'.toLowerCase(),
-      ];
+        name,
+        '$ShowkaseTextStyle',
+      ].map((w) => w.toLowerCase()).toList();
 }

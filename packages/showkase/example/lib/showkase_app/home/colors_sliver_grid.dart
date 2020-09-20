@@ -36,7 +36,11 @@ extension _DisplayColors on ThemeData {
 }
 
 class ColorsSliverGrid extends StatelessWidget {
-  const ColorsSliverGrid();
+  const ColorsSliverGrid({
+    @required this.colors,
+  });
+
+  final List<ShowkaseColor> colors;
 
   @override
   Widget build(BuildContext context) {
