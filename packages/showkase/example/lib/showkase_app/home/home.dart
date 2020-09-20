@@ -1,33 +1,43 @@
-import 'package:example/showkase_app/home/home_for_large_screen.dart';
+import 'package:example/showkase_app/home/home_for_large_screen/home_for_large_screen.dart';
 import 'package:example/showkase_app/home/home_for_small_screen.dart';
+import 'package:example/showkase_app/model/model.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
+import 'showkase_group_extensions.dart';
 
 const _screenBoundary = 960.0;
 
-enum HomeScreenContent {
-  colorScheme,
-  colors,
-  textTheme,
-}
-
-extension HomeScreenContentTitle on HomeScreenContent {
-  String get title => ReCase(describeEnum(this)).pascalCase;
-}
-
 class ShowkaseHome extends StatelessWidget {
   const ShowkaseHome({
+    List<ShowkaseComponent> components,
     Key key,
-  }) : super(key: key);
+  })  : components = components ?? const [],
+        super(key: key);
+
+  final List<ShowkaseComponent> components;
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    if (width < _screenBoundary) {
+    final theme = Theme.of(context);
+
+    final groupNames = components.map((c) => c.group).toSet();
+    final componentGroups = groupNames.map((name) {
+      return ShowkaseGroup<ShowkaseComponent>(
+        name,
+        items: components.where((c) => c.group == name).toList(),
+      );
+    }).toList();
+
+    if (MediaQuery.of(context).size.width < _screenBoundary) {
       return HomeForSmallScreen();
     } else {
-      return HomeForLargeScreen();
+      return HomeForLargeScreen(
+        colorGroup: theme.colorGroup,
+        colorSchemeGroup: theme.colorSchemeGroup,
+        textThemeGroup: theme.textThemeGroup,
+        componentGroups: componentGroups,
+      );
     }
   }
 }

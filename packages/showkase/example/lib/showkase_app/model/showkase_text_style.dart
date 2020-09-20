@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 
+import 'copyable.dart';
 import 'searchable.dart';
 
-class ShowkaseTextStyle implements Searchable {
+class ShowkaseTextStyle implements Searchable, Copyable {
   final String name;
   final TextStyle value;
 
@@ -14,4 +15,7 @@ class ShowkaseTextStyle implements Searchable {
         name,
         '$ShowkaseTextStyle',
       ].map((w) => w.toLowerCase()).toList();
+
+  @override
+  String get copyContent => 'Theme.of(context).textTheme.$name';
 }

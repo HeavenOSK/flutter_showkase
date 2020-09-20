@@ -1,6 +1,7 @@
 import 'package:example/paddings.dart';
 import 'package:example/showkase_app/model/showkase_color.dart';
 import 'package:example/showkase_app/model/showkase_group.dart';
+import 'package:example/showkase_app/widgets/copier_on_tap.dart';
 import 'package:flutter/material.dart';
 
 extension _DisplayColors on ThemeData {
@@ -81,8 +82,6 @@ class ColorsSliverGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: mediumPadding),
       sliver: SliverGrid(
@@ -94,9 +93,9 @@ class ColorsSliverGrid extends StatelessWidget {
         ),
         delegate: SliverChildListDelegate(
           [
-            for (final showkaseColor in theme.displayColors)
+            for (final color in colors)
               ColorGridItem(
-                showkaseColor: showkaseColor,
+                color: color,
               )
           ],
         ),
@@ -107,42 +106,44 @@ class ColorsSliverGrid extends StatelessWidget {
 
 class ColorGridItem extends StatelessWidget {
   const ColorGridItem({
-    @required this.showkaseColor,
+    @required this.color,
     Key key,
   }) : super(key: key);
 
-  final ShowkaseColor showkaseColor;
+  final ShowkaseColor color;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final isLight = showkaseColor.value.computeLuminance() < 0.5;
+    final isLight = color.value.computeLuminance() < 0.5;
     final onColor = isLight ? Colors.white : Colors.black;
-    return Container(
-      color: showkaseColor.value,
-      padding: EdgeInsets.all(8),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text(
-              showkaseColor.name,
-              style: theme.textTheme.bodyText1.copyWith(
-                color: onColor,
+    return CopierOnTap(
+      targetContent: color.copyContent,
+      child: Container(
+        color: color.value,
+        padding: EdgeInsets.all(8),
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Text(
+                color.name,
+                style: theme.textTheme.bodyText1.copyWith(
+                  color: onColor,
+                ),
               ),
             ),
-          ),
-          Spacer(),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: Text(
-              showkaseColor.value.toString(),
-              style: theme.textTheme.bodyText2.copyWith(
-                color: onColor,
+            Align(
+              alignment: Alignment.bottomRight,
+              child: Text(
+                color.value.toString(),
+                style: theme.textTheme.bodyText2.copyWith(
+                  color: onColor,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

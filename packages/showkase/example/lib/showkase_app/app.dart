@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'home/home.dart';
-import 'theme_provider.dart';
+import 'model/model.dart';
+import 'showkase_theme_provider.dart';
 
 class ShowkaseApp extends StatefulWidget {
   const ShowkaseApp({
     this.lightTheme,
     this.darkTheme,
+    this.components,
   });
 
   final ThemeData lightTheme;
   final ThemeData darkTheme;
+  final List<ShowkaseComponent> components;
 
   static ShowkaseAppState of(BuildContext context) =>
       context.findAncestorStateOfType<ShowkaseAppState>();
@@ -30,13 +33,15 @@ class ShowkaseAppState extends State<ShowkaseApp> {
 
   @override
   Widget build(BuildContext context) {
-    return ThemeProvider(
+    return ShowkaseThemeProvider(
       isLight: _isLight,
       child: MaterialApp(
         theme: widget.lightTheme,
         darkTheme: widget.darkTheme,
         themeMode: _isLight ? ThemeMode.light : ThemeMode.dark,
-        home: ShowkaseHome(),
+        home: ShowkaseHome(
+          components: widget.components,
+        ),
       ),
     );
   }

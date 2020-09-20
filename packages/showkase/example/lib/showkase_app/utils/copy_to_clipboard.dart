@@ -1,4 +1,7 @@
 import 'package:flutter/services.dart';
 
-void copyToClipboard(String text) =>
-    Clipboard.setData(ClipboardData(text: text));
+void copyToClipboard(String content) {
+  if (content?.isNotEmpty ?? false) {
+    Clipboard.setData(ClipboardData(text: content));
+  }
+}

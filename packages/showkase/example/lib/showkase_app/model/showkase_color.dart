@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'copyable.dart';
 import 'searchable.dart';
 
-class ShowkaseColor implements Searchable {
+class ShowkaseColor implements Searchable, Copyable {
   const ShowkaseColor(this.name, this.value);
 
   final Color value;
@@ -13,24 +14,7 @@ class ShowkaseColor implements Searchable {
         name,
         '$ShowkaseColor',
       ].map((w) => w.toLowerCase()).toList();
-}
-
-class ShowkaseColorScheme implements Searchable {
-  ShowkaseColorScheme({
-    @required this.color,
-    this.variantColor,
-    @required this.onColor,
-  });
-
-  final ShowkaseColor color;
-  final ShowkaseColor variantColor;
-  final ShowkaseColor onColor;
 
   @override
-  List<String> get keywords => [
-        '$ShowkaseColorScheme',
-        color.name,
-        if (variantColor != null) variantColor.name,
-        onColor.name,
-      ].map((w) => w.toLowerCase()).toList();
+  String get copyContent => 'Theme.of(context).$name';
 }

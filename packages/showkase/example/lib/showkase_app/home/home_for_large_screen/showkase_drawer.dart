@@ -1,39 +1,43 @@
 import 'package:example/showkase_app/app.dart';
-import 'package:example/showkase_app/home/home_for_large_screen.dart';
-import 'package:example/showkase_app/theme_provider.dart';
+import 'package:example/showkase_app/home/home_for_large_screen/home_for_large_screen.dart';
+import 'package:example/showkase_app/showkase_theme_provider.dart';
 import 'package:flutter/material.dart';
 
-import 'home.dart';
+import '../home.dart';
 
-typedef OnTapContentMenu = void Function(List<HomeScreenContent> contents);
+typedef OnTapContentMenu = void Function(String groupName);
 
 class ShowkaseDrawer extends StatelessWidget {
   const ShowkaseDrawer({
     Key key,
-    @required this.contents,
-    @required this.onTapContentMenu,
+    @required this.groupNames,
+    @required this.onTapAll,
+    @required this.onTapGroup,
   }) : super(key: key);
 
-  final List<String> contents;
-  final OnTapContentMenu onTapContentMenu;
+  final List<String> groupNames;
+  final VoidCallback onTapAll;
+  final OnTapContentMenu onTapGroup;
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      elevation: 1,
+      elevation: 0,
       child: ListView(
         children: [
           DarkModeSwitch(),
           Divider(),
           ListTile(
             title: Text('All'),
-            onTap: () {},
+            onTap: onTapAll,
           ),
           Divider(),
-          ...contents.map((content) {
+          ...groupNames.map((groupName) {
             return ListTile(
-              title: Text(content),
-              onTap: () {},
+              title: Text(groupName),
+              onTap: () {
+                onTapGroup?.call(groupName);
+              },
             );
           })
         ],
@@ -48,7 +52,7 @@ class DarkModeSwitch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final app = ShowkaseApp.of(context);
-    final isLight = ThemeProvider.of(context).isLight;
+    final isLight = ShowkaseThemeProvider.of(context).isLight;
     return ListTile(
       title: Text('Dark mode'),
       trailing: Switch(
