@@ -13,17 +13,18 @@ class SliverTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return SliverPadding(
-      padding: EdgeInsets.all(mediumPadding).copyWith(top: 40),
+      padding: EdgeInsets.all(mediumPadding).copyWith(top: largePadding),
       sliver: SingleChildSliver(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               title,
-              style: Theme.of(context).textTheme.headline2.copyWith(
-                    fontWeight: FontWeight.bold,
-                  ),
+              style: theme.textTheme.headline2.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             Divider(),
           ],

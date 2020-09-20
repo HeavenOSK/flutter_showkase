@@ -68,43 +68,48 @@ class _ColorSchemeItem extends StatelessWidget {
               child: Container(
                 color: color.value,
                 padding: const EdgeInsets.all(8.0),
-                child: Column(
+                child: Stack(
                   children: [
-                    Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        color.name,
-                        style: theme.textTheme.headline6.copyWith(
+                    Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Text(
+                            color.name,
+                            style: theme.textTheme.headline6.copyWith(
+                              color: onColor,
+                            ),
+                          ),
+                        ),
+                        Spacer(),
+                        Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            color.value.toString(),
+                            style: theme.textTheme.bodyText1.copyWith(
+                              color: onColor,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                    Center(
+                      child: Container(
+                        height: 48,
+                        width: 48,
+                        decoration: BoxDecoration(
                           color: onColor,
+                          borderRadius: BorderRadius.circular(36),
+                        ),
+                        alignment: Alignment.center,
+                        child: Text(
+                          color.name.characters.first,
+                          style: theme.textTheme.headline6.copyWith(
+                            color: color.value,
+                          ),
                         ),
                       ),
                     ),
-                    Spacer(),
-                    Container(
-                      height: 48,
-                      width: 48,
-                      decoration: BoxDecoration(
-                        color: onColor,
-                        borderRadius: BorderRadius.circular(36),
-                      ),
-                      alignment: Alignment.center,
-                      child: Text(
-                        color.name.characters.first,
-                        style: theme.textTheme.headline6.copyWith(
-                          color: color.value,
-                        ),
-                      ),
-                    ),
-                    Spacer(),
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        color.value.toString(),
-                        style: theme.textTheme.bodyText1.copyWith(
-                          color: onColor,
-                        ),
-                      ),
-                    )
                   ],
                 ),
               ),
