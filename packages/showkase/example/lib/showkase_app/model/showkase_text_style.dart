@@ -1,8 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:recase/recase.dart';
 
-class ShowkaseTextStyle {
+import 'searchable.dart';
+
+class ShowkaseTextStyle implements Searchable {
   final String name;
   final TextStyle value;
 
-  ShowkaseTextStyle(this.name, this.value);
+  const ShowkaseTextStyle(this.name, this.value);
+
+  @override
+  List<String> get keywords => [
+        name.toLowerCase(),
+        '$ShowkaseTextStyle'.toLowerCase(),
+      ];
 }

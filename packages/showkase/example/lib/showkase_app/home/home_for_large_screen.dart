@@ -12,6 +12,7 @@ import 'colors_sliver_grid.dart';
 import 'component_group.dart';
 import 'showkase_drawer.dart';
 import 'single_child_sliver.dart';
+import 'text_theme_sliver_list.dart';
 import 'title_sliver.dart';
 
 extension _HomeForLargeScreenContent on HomeScreenContent {
@@ -22,9 +23,7 @@ extension _HomeForLargeScreenContent on HomeScreenContent {
       case HomeScreenContent.colors:
         return ColorsSliverGrid();
       case HomeScreenContent.textTheme:
-        return SingleChildSliver(child: SizedBox.shrink());
-      case HomeScreenContent.components:
-        return SingleChildSliver(child: SizedBox.shrink());
+        return TextThemeSliverList();
     }
     return SingleChildSliver(child: SizedBox.shrink());
   }
@@ -66,19 +65,25 @@ class _HomeForLargeScreenState extends State<HomeForLargeScreen> {
           ),
           Expanded(
             child: CustomScrollView(
-              slivers: _visibleContents.fold<Iterable<Widget>>(
-                  <Widget>[],
-                  (prev, content) => [
-                        ...prev,
-                        SliverTitle(
-                          title: content.title,
-                        ),
-                        content.content,
-                      ]).toList(),
+              slivers: [
+                ..._visibleContents.fold<Iterable<Widget>>(
+                    <Widget>[],
+                    (prev, content) => [
+                          ...prev,
+                          SliverTitle(
+                            title: content.title,
+                          ),
+                          content.content,
+                        ]),
+                _spacer(),
+              ],
             ),
           ),
         ],
       ),
     );
   }
+
+  SingleChildSliver _spacer() =>
+      SingleChildSliver(child: const SizedBox(height: 400));
 }

@@ -1,3 +1,4 @@
+import 'package:example/paddings.dart';
 import 'package:example/showkase_app/model/showkase_color.dart';
 import 'package:flutter/material.dart';
 
@@ -42,12 +43,12 @@ class ColorsSliverGrid extends StatelessWidget {
     final theme = Theme.of(context);
 
     return SliverPadding(
-      padding: EdgeInsets.symmetric(horizontal: 8),
+      padding: EdgeInsets.symmetric(horizontal: mediumPadding),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 10,
-          crossAxisSpacing: 8,
-          mainAxisSpacing: 8,
+          crossAxisSpacing: smallPadding,
+          mainAxisSpacing: smallPadding,
           childAspectRatio: 1,
         ),
         delegate: SliverChildListDelegate(

@@ -5,11 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:recase/recase.dart';
 
 const _screenBoundary = 960.0;
+
 enum HomeScreenContent {
   colorScheme,
   colors,
   textTheme,
-  components,
 }
 
 extension HomeScreenContentTitle on HomeScreenContent {
