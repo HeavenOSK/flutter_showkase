@@ -37,7 +37,7 @@ class HomeForLargeScreen extends StatefulWidget {
 
   final ShowkaseGroup<ShowkaseColorScheme> colorSchemeGroup;
   final ShowkaseGroup<ShowkaseColor> colorGroup;
-  final ShowkaseGroup<ShowkaseTextStyle> textThemeGroup;
+  final ShowkaseGroup<ShowkaseTextTheme> textThemeGroup;
   final List<ShowkaseGroup<ShowkaseComponent>> componentGroups;
 
   @override

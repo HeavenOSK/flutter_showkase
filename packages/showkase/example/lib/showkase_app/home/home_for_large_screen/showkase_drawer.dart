@@ -21,6 +21,7 @@ class ShowkaseDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Drawer(
       elevation: 0,
       child: ListView(
@@ -28,10 +29,18 @@ class ShowkaseDrawer extends StatelessWidget {
           DarkModeSwitch(),
           Divider(),
           ListTile(
-            title: Text('All'),
+            title: Text('All items'),
             onTap: onTapAll,
           ),
           Divider(),
+          ListTile(
+            title: Text(
+              'Groups',
+              style: theme.textTheme.subtitle2.copyWith(
+                color: theme.textTheme.caption.color,
+              ),
+            ),
+          ),
           ...groupNames.map((groupName) {
             return ListTile(
               title: Text(groupName),

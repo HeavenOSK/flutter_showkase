@@ -9,7 +9,7 @@ class TextThemeSliverList extends StatelessWidget {
     @required this.textStyles,
   });
 
-  final List<ShowkaseTextStyle> textStyles;
+  final List<ShowkaseTextTheme> textStyles;
 
   @override
   Widget build(BuildContext context) {

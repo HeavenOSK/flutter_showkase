@@ -4,16 +4,16 @@ import 'package:recase/recase.dart';
 import 'copyable.dart';
 import 'searchable.dart';
 
-class ShowkaseTextStyle implements Searchable, Copyable {
+class ShowkaseTextTheme implements Searchable, Copyable {
   final String name;
   final TextStyle value;
 
-  const ShowkaseTextStyle(this.name, this.value);
+  const ShowkaseTextTheme(this.name, this.value);
 
   @override
   List<String> get keywords => [
         name,
-        '$ShowkaseTextStyle',
+        '$ShowkaseTextTheme',
       ].map((w) => w.toLowerCase()).toList();
 
   @override

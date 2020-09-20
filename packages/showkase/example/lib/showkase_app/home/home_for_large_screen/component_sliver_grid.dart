@@ -64,7 +64,7 @@ class ComponentGridItem extends StatelessWidget {
             alignment: Alignment.centerRight,
             margin: EdgeInsets.all(smallPadding),
             child: TextButton(
-              child: Text('OPEN'),
+              child: Text('DETAIL PAGE'),
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(

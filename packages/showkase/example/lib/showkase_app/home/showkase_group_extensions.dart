@@ -77,24 +77,24 @@ extension ShowkaseGroupsExtension on ThemeData {
     );
   }
 
-  ShowkaseGroup<ShowkaseTextStyle> get textThemeGroup {
+  ShowkaseGroup<ShowkaseTextTheme> get textThemeGroup {
     final textTheme = this.textTheme;
-    return ShowkaseGroup<ShowkaseTextStyle>(
+    return ShowkaseGroup<ShowkaseTextTheme>(
       'TextTheme',
       items: [
-        ShowkaseTextStyle('headline1', textTheme.headline1),
-        ShowkaseTextStyle('headline2', textTheme.headline2),
-        ShowkaseTextStyle('headline3', textTheme.headline3),
-        ShowkaseTextStyle('headline4', textTheme.headline4),
-        ShowkaseTextStyle('headline5', textTheme.headline5),
-        ShowkaseTextStyle('headline6', textTheme.headline6),
-        ShowkaseTextStyle('subtitle1', textTheme.subtitle1),
-        ShowkaseTextStyle('subtitle2', textTheme.subtitle2),
-        ShowkaseTextStyle('bodyText1', textTheme.bodyText1),
-        ShowkaseTextStyle('bodyText2', textTheme.bodyText2),
-        ShowkaseTextStyle('caption', textTheme.caption),
-        ShowkaseTextStyle('button', textTheme.button),
-        ShowkaseTextStyle('overline', textTheme.overline),
+        ShowkaseTextTheme('headline1', textTheme.headline1),
+        ShowkaseTextTheme('headline2', textTheme.headline2),
+        ShowkaseTextTheme('headline3', textTheme.headline3),
+        ShowkaseTextTheme('headline4', textTheme.headline4),
+        ShowkaseTextTheme('headline5', textTheme.headline5),
+        ShowkaseTextTheme('headline6', textTheme.headline6),
+        ShowkaseTextTheme('subtitle1', textTheme.subtitle1),
+        ShowkaseTextTheme('subtitle2', textTheme.subtitle2),
+        ShowkaseTextTheme('bodyText1', textTheme.bodyText1),
+        ShowkaseTextTheme('bodyText2', textTheme.bodyText2),
+        ShowkaseTextTheme('caption', textTheme.caption),
+        ShowkaseTextTheme('button', textTheme.button),
+        ShowkaseTextTheme('overline', textTheme.overline),
       ],
     );
   }
