@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'showkase_app/app.dart';
 import 'theme.dart';
-import 'widgets/widgets.dart';
 
 void main() {
   runApp(MyApp());
