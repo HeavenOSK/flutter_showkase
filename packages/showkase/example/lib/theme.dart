@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 ThemeData lightTheme() {
-  return ThemeData.light().copyWith(
-    primaryColor: Colors.blue,
+  return ThemeData(
+    primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
 
 ThemeData darkTheme() {
-  return ThemeData.dark().copyWith(
-    primaryColor: Colors.blue,
+  return ThemeData(
+    primarySwatch: Colors.yellow,
     visualDensity: VisualDensity.adaptivePlatformDensity,
   );
 }
