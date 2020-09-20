@@ -14,7 +14,7 @@ class ShowkaseDrawer extends StatelessWidget {
     @required this.onTapContentMenu,
   }) : super(key: key);
 
-  final List<HomeScreenContent> contents;
+  final List<String> contents;
   final OnTapContentMenu onTapContentMenu;
 
   @override
@@ -27,17 +27,13 @@ class ShowkaseDrawer extends StatelessWidget {
           Divider(),
           ListTile(
             title: Text('All'),
-            onTap: () {
-              onTapContentMenu?.call(contents);
-            },
+            onTap: () {},
           ),
           Divider(),
           ...contents.map((content) {
             return ListTile(
-              title: Text(content.title),
-              onTap: () {
-                onTapContentMenu?.call([content]);
-              },
+              title: Text(content),
+              onTap: () {},
             );
           })
         ],
