@@ -1,4 +1,4 @@
 library showkase;
 
-export 'src/annotations.dart';
-export 'src/widgets/widgets.dart';
+export 'src/interface/interface.dart';
+export 'src/showkase_app/showkase_app.dart';
