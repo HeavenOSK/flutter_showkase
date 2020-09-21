@@ -166,29 +166,33 @@ class _HomeForLargeScreenState extends State<HomeForLargeScreen> {
       appBar: AppBar(title: Text('Showkase')),
       body: Row(
         children: [
-          ShowkaseDrawer(
-            groupNames: _defaultGroupNames,
-            onTapAll: () {
-              setState(() {
-                _mode = _Mode.groupSearch;
-                _searchController.text = '';
-                _visibleGroupNames = _defaultGroupNames;
-              });
-              _unFocus();
-            },
-            onTapGroup: (selectedContents) {
-              if (selectedContents?.isNotEmpty ?? false) {
+          Expanded(
+            flex: 1,
+            child: ShowkaseDrawer(
+              groupNames: _defaultGroupNames,
+              onTapAll: () {
                 setState(() {
                   _mode = _Mode.groupSearch;
-                  _visibleGroupNames = [selectedContents];
                   _searchController.text = '';
+                  _visibleGroupNames = _defaultGroupNames;
                 });
                 _unFocus();
-              }
-            },
+              },
+              onTapGroup: (selectedContents) {
+                if (selectedContents?.isNotEmpty ?? false) {
+                  setState(() {
+                    _mode = _Mode.groupSearch;
+                    _visibleGroupNames = [selectedContents];
+                    _searchController.text = '';
+                  });
+                  _unFocus();
+                }
+              },
+            ),
           ),
           VerticalDivider(),
           Expanded(
+            flex: 5,
             child: Scaffold(
               body: Column(
                 children: [

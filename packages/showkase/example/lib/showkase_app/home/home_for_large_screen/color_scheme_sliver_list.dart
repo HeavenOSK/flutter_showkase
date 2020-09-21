@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:example/showkase_app/model/model.dart';
 import 'package:example/showkase_app/model/showkase_color.dart';
 import 'package:example/showkase_app/widgets/copier_on_tap.dart';
@@ -61,24 +63,26 @@ class _ColorSchemeItem extends StatelessWidget {
     return Expanded(
       child: Padding(
         padding: const EdgeInsets.only(right: mediumPadding),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 10,
-              child: _Color(
-                color: color,
-                onColor: onColor,
-              ),
-            ),
-            if (variantColor != null)
+        child: Card(
+          child: Column(
+            children: [
               Expanded(
-                flex: 3,
-                child: _Variant(
-                  variantColor: variantColor,
+                flex: 2,
+                child: _Color(
+                  color: color,
                   onColor: onColor,
                 ),
-              )
-          ],
+              ),
+              if (variantColor != null)
+                Expanded(
+                  flex: 1,
+                  child: _Variant(
+                    variantColor: variantColor,
+                    onColor: onColor,
+                  ),
+                )
+            ],
+          ),
         ),
       ),
     );
@@ -99,40 +103,49 @@ class _Color extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
-    return CopierOnTap(
-      targetContent: color.copyContent,
-      child: Container(
-        color: color.value,
-        padding: const EdgeInsets.all(8.0),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                color.name,
-                style: theme.textTheme.headline6.copyWith(
-                  color: onColor.value,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return CopierOnTap(
+          targetContent: color.copyContent,
+          child: Container(
+            color: color.value,
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: FittedBox(
+                    child: Text(
+                      color.name,
+                      style: theme.textTheme.headline6.copyWith(
+                        color: onColor.value,
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                color.value.toString(),
-                style: theme.textTheme.bodyText1.copyWith(
-                  color: onColor.value,
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    color.value.toString(),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 2,
+                    style: theme.textTheme.bodyText1.copyWith(
+                      color: onColor.value,
+                    ),
+                  ),
                 ),
-              ),
+                Center(
+                  child: _OnColor(
+                    onColor: onColor,
+                    color: color,
+                    size: constraints.maxHeight * 0.25,
+                  ),
+                ),
+              ],
             ),
-            Center(
-              child: _OnColor(
-                onColor: onColor,
-                color: color,
-              ),
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -142,29 +155,34 @@ class _OnColor extends StatelessWidget {
     Key key,
     @required this.onColor,
     @required this.color,
+    @required this.size,
   }) : super(key: key);
 
   final ShowkaseColorSchemeColor onColor;
   final ShowkaseColorSchemeColor color;
+  final double size;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final preferredSize = min(size, 48.0);
 
     return CopierOnTap(
       targetContent: onColor.copyContent,
       child: Container(
-        height: 48,
-        width: 48,
+        height: preferredSize,
+        width: preferredSize,
         decoration: BoxDecoration(
           color: onColor.value,
-          borderRadius: BorderRadius.circular(36),
+          borderRadius: BorderRadius.circular(preferredSize),
         ),
         alignment: Alignment.center,
-        child: Text(
-          color.name.characters.first,
-          style: theme.textTheme.headline6.copyWith(
-            color: color.value,
+        child: FittedBox(
+          child: Text(
+            color.name.characters.first,
+            style: theme.textTheme.headline6.copyWith(
+              color: color.value,
+            ),
           ),
         ),
       ),
@@ -190,23 +208,30 @@ class _Variant extends StatelessWidget {
       child: Container(
         color: variantColor.value,
         padding: const EdgeInsets.all(8.0),
-        child: Stack(
+        child: Column(
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: Text(
-                variantColor.name,
-                style: theme.textTheme.headline6.copyWith(
-                  color: onColor.value,
+              child: FittedBox(
+                child: Text(
+                  variantColor.name,
+                  style: theme.textTheme.headline6.copyWith(
+                    color: onColor.value,
+                  ),
                 ),
               ),
             ),
+            Spacer(),
             Align(
               alignment: Alignment.bottomRight,
-              child: Text(
-                variantColor.value.toString(),
-                style: theme.textTheme.bodyText1.copyWith(
-                  color: onColor.value,
+              child: FittedBox(
+                child: Text(
+                  variantColor.value.toString(),
+                  style: theme.textTheme.bodyText1.copyWith(
+                    color: onColor.value,
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
                 ),
               ),
             ),

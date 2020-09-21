@@ -29,7 +29,7 @@ class ShowkaseDrawer extends StatelessWidget {
           DarkModeSwitch(),
           Divider(),
           ListTile(
-            title: Text('All items'),
+            title: Text('All Items'),
             onTap: onTapAll,
           ),
           Divider(),
@@ -63,7 +63,7 @@ class DarkModeSwitch extends StatelessWidget {
     final app = ShowkaseApp.of(context);
     final isLight = ShowkaseThemeProvider.of(context).isLight;
     return ListTile(
-      title: Text('Dark mode'),
+      title: Text('Dark Mode'),
       trailing: Switch(
         onChanged: (bool value) {
           app.toggleTheme();

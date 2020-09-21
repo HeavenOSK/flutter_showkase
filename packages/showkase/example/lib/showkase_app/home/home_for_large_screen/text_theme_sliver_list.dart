@@ -21,15 +21,20 @@ class TextThemeSliverList extends StatelessWidget {
       sliver: SliverList(
         delegate: SliverChildListDelegate.fixed(
           textStyles.map((style) {
-            return CopierOnTap(
-              targetContent: style.copyContent,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    style.name,
-                    style: style.value,
+            return Padding(
+              padding: const EdgeInsets.only(bottom: mediumPadding),
+              child: CopierOnTap(
+                targetContent: style.copyContent,
+                child: Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(mediumPadding),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        style.name,
+                        style: style.value,
+                      ),
+                    ),
                   ),
                 ),
               ),

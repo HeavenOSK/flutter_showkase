@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ShowkaseComponent(
-          name: 'CanceButton',
+          name: 'CancelButton',
           group: 'Button',
           component: RaisedButton(
             onPressed: () {},

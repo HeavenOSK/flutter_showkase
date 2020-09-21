@@ -86,7 +86,7 @@ class ColorsSliverGrid extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: mediumPadding),
       sliver: SliverGrid(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 10,
+          crossAxisCount: 5,
           crossAxisSpacing: smallPadding,
           mainAxisSpacing: smallPadding,
           childAspectRatio: 1,
@@ -119,30 +119,32 @@ class ColorGridItem extends StatelessWidget {
     final onColor = isLight ? Colors.white : Colors.black;
     return CopierOnTap(
       targetContent: color.copyContent,
-      child: Container(
-        color: color.value,
-        padding: EdgeInsets.all(8),
-        child: Stack(
-          children: [
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                color.name,
-                style: theme.textTheme.bodyText1.copyWith(
-                  color: onColor,
+      child: Card(
+        child: Container(
+          color: color.value,
+          padding: EdgeInsets.all(8),
+          child: Stack(
+            children: [
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  color.name,
+                  style: theme.textTheme.bodyText1.copyWith(
+                    color: onColor,
+                  ),
                 ),
               ),
-            ),
-            Align(
-              alignment: Alignment.bottomRight,
-              child: Text(
-                color.value.toString(),
-                style: theme.textTheme.bodyText2.copyWith(
-                  color: onColor,
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Text(
+                  color.value.toString(),
+                  style: theme.textTheme.bodyText2.copyWith(
+                    color: onColor,
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
