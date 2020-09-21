@@ -1,0 +1,19 @@
+name: showkase_generator
+description: A new Flutter package.
+version: 0.0.1
+author:
+homepage:
+
+environment:
+  sdk: ">=2.7.0 <3.0.0"
+
+dependencies:
+  meta: ^1.1.8
+  build: ^1.3.0
+  source_gen: ^0.9.6
+  glob: ^1.2.0
+  analyzer: ^0.39.14
+  showkase:
+    path:
+      ../showkase
+

@@ -14,7 +14,7 @@ class ShowkaseComponent implements Searchable {
     return ShowkaseComponent(
       name: showkased.name,
       group: showkased.groupName,
-      component: showkased.components.first,
+      component: showkased.component,
     );
   }
 

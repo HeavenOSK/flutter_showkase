@@ -1,0 +1,19 @@
+targets:
+  $default:
+    builders:
+      showkase_generator:
+        enabled: true
+        generate_for:
+          exclude:
+            - test
+            - example
+#          include:
+#            - test/integration/*
+
+builders:
+  flutter_showkase:
+    import: "package:showkase_generator/builder.dart"
+    build_extensions: { ".dart": [".showkase.dart"] }
+    builder_factories: ["showkase"]
+    auto_apply: dependents
+    build_to: source

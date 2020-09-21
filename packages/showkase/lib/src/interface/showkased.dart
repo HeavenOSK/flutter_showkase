@@ -1,29 +1,7 @@
 import 'package:flutter/material.dart';
 
-abstract class Showkased {
-  factory Showkased.theme({
-    @required ThemeData theme,
-    ThemeData darkTheme,
-  }) =>
-      ShowkasedTheme._(
-        theme: theme,
-        darkTheme: darkTheme,
-      );
-
-  factory Showkased.component({
-    @required String name,
-    String groupName,
-    @required List<Widget> components,
-  }) =>
-      ShowkasedComponent._(
-        name: name,
-        groupName: groupName,
-        components: components,
-      );
-}
-
-class ShowkasedTheme with Showkased {
-  const ShowkasedTheme._({
+class ShowkasedTheme {
+  const ShowkasedTheme({
     @required this.theme,
     this.darkTheme,
   }) : assert(theme != null);
@@ -32,15 +10,15 @@ class ShowkasedTheme with Showkased {
   final ThemeData darkTheme;
 }
 
-class ShowkasedComponent with Showkased {
-  ShowkasedComponent._({
+class ShowkasedComponent {
+  ShowkasedComponent({
     @required this.name,
     this.groupName,
-    @required this.components,
+    @required this.component,
   })  : assert(name != null),
-        assert(components != null);
+        assert(component != null);
 
   final String name;
   final String groupName;
-  final List<Widget> components;
+  final Widget component;
 }
