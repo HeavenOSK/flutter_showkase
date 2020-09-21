@@ -37,41 +37,46 @@ class ListAllClassesBuilder implements Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
+    // buildStep.
     final themeVals = <_VariableModel>[];
     final componentVals = <_VariableModel>[];
     final pathSet = Set<String>();
 
     await for (final input in buildStep.findAssets(Glob('lib/**'))) {
-      final library = await buildStep.resolver.libraryFor(input);
+      try {
+        final library = await buildStep.resolver.libraryFor(input);
 
-      LibraryReader(library).allElements.forEach(
-        (rawElement) {
-          if (rawElement.kind == ElementKind.GETTER) {
-            final getter = rawElement as ExecutableElement;
-            final returnTypeString = getter.returnType.toString();
+        LibraryReader(library).allElements.forEach(
+          (rawElement) {
+            if (rawElement.kind == ElementKind.GETTER) {
+              final getter = rawElement as ExecutableElement;
+              final returnTypeString = getter.returnType.toString();
 
-            if (returnTypeString == ShowkaseClassNames.component) {
-              final path = getter.location.components.first;
-              pathSet.add(path);
-              componentVals.add(
-                _VariableModel(
-                  path,
-                  getter.displayName,
-                ),
-              );
-            } else if (returnTypeString == ShowkaseClassNames.theme) {
-              final path = getter.location.components.first;
-              pathSet.add(path);
-              themeVals.add(
-                _VariableModel(
-                  path,
-                  getter.displayName,
-                ),
-              );
+              if (returnTypeString == ShowkaseClassNames.component) {
+                final path = getter.location.components.first;
+                pathSet.add(path);
+                componentVals.add(
+                  _VariableModel(
+                    path,
+                    getter.displayName,
+                  ),
+                );
+              } else if (returnTypeString == ShowkaseClassNames.theme) {
+                final path = getter.location.components.first;
+                pathSet.add(path);
+                themeVals.add(
+                  _VariableModel(
+                    path,
+                    getter.displayName,
+                  ),
+                );
+              }
             }
-          }
-        },
-      );
+          },
+        );
+      } catch (_) {
+        print(_);
+      }
     }
 
     final sortedPaths = pathSet.toList()..sort();
