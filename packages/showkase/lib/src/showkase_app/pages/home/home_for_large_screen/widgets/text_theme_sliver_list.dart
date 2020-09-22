@@ -32,9 +32,29 @@ class TextThemeSliverList extends StatelessWidget {
                         const EdgeInsets.all(PaddingForDesktop.mediumPadding),
                     child: Align(
                       alignment: Alignment.centerLeft,
-                      child: Text(
-                        style.name,
-                        style: style.value,
+                      child: Row(
+                        children: [
+                          Text(
+                            style.name,
+                            style: style.value,
+                          ),
+                          Spacer(),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'fontSize:${style.value.fontSize.toString()}',
+                              ),
+                              Text(
+                                '${style.value.fontWeight.toString()}',
+                              ),
+                              Text(
+                                '${style.value.color.toString()}',
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ),

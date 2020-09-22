@@ -1,4 +1,7 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:showkase/src/showkase_app/pages/component_detail_page.dart';
 
 import '../../../constants/constants.dart';
 import '../../../model/model.dart';
@@ -13,6 +16,7 @@ import 'widgets/title_sliver.dart';
 enum _Mode {
   keywordSearch,
   groupSearch,
+  detail,
 }
 
 extension _IsKeywordSearch on _Mode {
@@ -39,6 +43,8 @@ class HomeForLargeScreen extends StatefulWidget {
 class _HomeForLargeScreenState extends State<HomeForLargeScreen> {
   List<String> _visibleGroupNames;
   _Mode _mode;
+
+  ShowkaseComponent _focusItem;
 
   TextEditingController _searchController = TextEditingController();
   FocusNode _searchNode = FocusNode();
@@ -115,6 +121,12 @@ class _HomeForLargeScreenState extends State<HomeForLargeScreen> {
             SliverTitle(title: componentGroup.name),
             ComponentsGridSliver(
               components: components,
+              onOpen: (c) {
+                setState(() {
+                  _focusItem = c;
+                  _mode = _Mode.detail;
+                });
+              },
             ),
           ]);
         }
@@ -145,66 +157,97 @@ class _HomeForLargeScreenState extends State<HomeForLargeScreen> {
       for (final componentGroup in widget.componentGroups) {
         if (_visibleGroupNames.contains(componentGroup.name)) {
           slivers.addAll([
-            SliverTitle(title: componentGroup.name),
+            SliverTitle(title: componentGroup?.name ?? ''),
             ComponentsGridSliver(
               components: componentGroup.items,
+              onOpen: (c) {
+                setState(() {
+                  _focusItem = c;
+                  _mode = _Mode.detail;
+                });
+              },
             ),
           ]);
         }
       }
     }
 
-    return Scaffold(
-      appBar: AppBar(title: Text('Showkase')),
-      body: Row(
-        children: [
-          Expanded(
-            flex: 1,
-            child: ShowkaseDrawer(
-              groupNames: _defaultGroupNames,
-              onTapAll: () {
-                setState(() {
-                  _mode = _Mode.groupSearch;
-                  _searchController.text = '';
-                  _visibleGroupNames = _defaultGroupNames;
-                });
-                _unFocus();
-              },
-              onTapGroup: (selectedContents) {
-                if (selectedContents?.isNotEmpty ?? false) {
+    return WillPopScope(
+      onWillPop: () async {
+        if (_mode == _Mode.detail) {
+          Future(() {
+            setState(() {
+              _mode = _Mode.groupSearch;
+            });
+          });
+          return false;
+        } else {
+          return true;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(title: Text('Showkase')),
+        body: Row(
+          children: [
+            Expanded(
+              flex: 1,
+              child: ShowkaseDrawer(
+                groupNames: _defaultGroupNames,
+                onTapAll: () {
                   setState(() {
                     _mode = _Mode.groupSearch;
-                    _visibleGroupNames = [selectedContents];
                     _searchController.text = '';
+                    _visibleGroupNames = _defaultGroupNames;
                   });
                   _unFocus();
-                }
-              },
-            ),
-          ),
-          VerticalDivider(),
-          Expanded(
-            flex: 5,
-            child: Scaffold(
-              body: Column(
-                children: [
-                  SearchTextField(
-                    focusNode: _searchNode,
-                    controller: _searchController,
-                  ),
-                  Expanded(
-                    child: CustomScrollView(
-                      slivers: [
-                        ...slivers,
-                        _spacer(),
-                      ],
-                    ),
-                  ),
-                ],
+                },
+                onTapGroup: (selectedContents) {
+                  if (selectedContents?.isNotEmpty ?? false) {
+                    setState(() {
+                      _mode = _Mode.groupSearch;
+                      _visibleGroupNames = [selectedContents];
+                      _searchController.text = '';
+                    });
+                    _unFocus();
+                  }
+                },
               ),
             ),
-          ),
-        ],
+            VerticalDivider(),
+            Expanded(
+              flex: 5,
+              child: _mode == _Mode.detail && _focusItem != null
+                  ? ComponentDetailPage(
+                      component: _focusItem,
+                      onBackButtonTap: () {
+                        Future(() {
+                          setState(() {
+                            _mode = _Mode.groupSearch;
+                          });
+                        });
+                      },
+                    )
+                  : Scaffold(
+                      body: Column(
+                        children: [
+                          SearchTextField(
+                            focusNode: _searchNode,
+                            controller: _searchController,
+                          ),
+                          Expanded(
+                            child: CustomScrollView(
+                              slivers: [
+                                ...slivers,
+                                _spacer(),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+            ),
+          ],
+        ),
       ),
     );
   }

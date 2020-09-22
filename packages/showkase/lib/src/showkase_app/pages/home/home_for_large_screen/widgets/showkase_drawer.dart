@@ -41,7 +41,7 @@ class ShowkaseDrawer extends StatelessWidget {
           ),
           ...groupNames.map((groupName) {
             return ListTile(
-              title: Text(groupName),
+              title: Text(groupName ?? ''),
               onTap: () {
                 onTapGroup?.call(groupName);
               },

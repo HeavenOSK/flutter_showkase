@@ -3,14 +3,17 @@ import 'package:flutter/material.dart';
 import '../../../../constants/constants.dart';
 import '../../../../model/model.dart';
 import '../../../../utils/utils.dart';
-import '../../../component_detail_page.dart';
+
+typedef OnOpen = void Function(ShowkaseComponent component);
 
 class ComponentsGridSliver extends StatelessWidget {
   const ComponentsGridSliver({
     @required this.components,
+    @required this.onOpen,
   });
 
   final List<ShowkaseComponent> components;
+  final OnOpen onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +23,14 @@ class ComponentsGridSliver extends StatelessWidget {
         childAspectRatio: 1,
       ),
       delegate: SliverChildListDelegate(
-        components.map((c) => ComponentGridItem(component: c)).toList(),
+        components
+            .map(
+              (c) => ComponentGridItem(
+                component: c,
+                onOpen: () => onOpen?.call(c),
+              ),
+            )
+            .toList(),
       ),
     );
   }
@@ -29,9 +39,11 @@ class ComponentsGridSliver extends StatelessWidget {
 class ComponentGridItem extends StatelessWidget {
   const ComponentGridItem({
     @required this.component,
+    @required this.onOpen,
   });
 
   final ShowkaseComponent component;
+  final VoidCallback onOpen;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +64,7 @@ class ComponentGridItem extends StatelessWidget {
                   Expanded(
                     child: FittedBox(
                       child: Text(
-                        component.name,
+                        component.name ?? '',
                         style: Theme.of(context).textTheme.headline6,
                       ),
                     ),
@@ -90,16 +102,8 @@ class ComponentGridItem extends StatelessWidget {
                     right: PaddingForDesktop.mediumPadding),
                 child: FittedBox(
                   child: FlatButton(
-                    child: Text('DETAIL PAGE'),
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_context) => ComponentDetailPage(
-                            component: component,
-                          ),
-                        ),
-                      );
-                    },
+                    child: Text('OPEN'),
+                    onPressed: onOpen,
                   ),
                 ),
               ),

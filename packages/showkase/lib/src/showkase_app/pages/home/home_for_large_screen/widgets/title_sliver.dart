@@ -22,7 +22,7 @@ class SliverTitle extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title,
+              title ?? '',
               style: theme.textTheme.headline2.copyWith(
                 fontWeight: FontWeight.bold,
               ),
