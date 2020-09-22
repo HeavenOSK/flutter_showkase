@@ -28,16 +28,16 @@ class ShowkaseHome extends StatelessWidget {
         items: components.where((c) => c.group == name).toList(),
       );
     }).toList();
-
-    if (MediaQuery.of(context).size.width < _screenBoundary) {
-      return HomeForSmallScreen();
-    } else {
-      return HomeForLargeScreen(
-        colorGroup: theme.colorGroup,
-        colorSchemeGroup: theme.colorSchemeGroup,
-        textThemeGroup: theme.textThemeGroup,
-        componentGroups: componentGroups,
-      );
-    }
+    // TODO(HeavenOSK): Support Smartphone size screen.
+    // if (MediaQuery.of(context).size.width < _screenBoundary) {
+    //   return HomeForSmallScreen();
+    // } else {
+    return HomeForLargeScreen(
+      colorGroup: theme.colorGroup,
+      colorSchemeGroup: theme.colorSchemeGroup,
+      textThemeGroup: theme.textThemeGroup,
+      componentGroups: componentGroups,
+    );
+    // }
   }
 }
