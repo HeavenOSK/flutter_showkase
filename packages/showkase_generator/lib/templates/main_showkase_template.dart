@@ -34,7 +34,7 @@ class MainShowkaseTemplate {
 ${sortedImports.join()}
 void main() {
   runApp(
-    MyShowkaseApp(),
+    const MyShowkaseApp(),
   );
 }
 

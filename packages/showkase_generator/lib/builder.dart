@@ -3,17 +3,21 @@ import 'dart:async';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:glob/glob.dart';
+import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
 import 'package:showkase_generator/constants/constants.dart';
 import 'package:source_gen/source_gen.dart';
 
 import 'templates/templates.dart';
 
-class _VariableModel {
+class _Variable {
   final String path;
   final String name;
 
-  _VariableModel(this.path, this.name);
+  _Variable({
+    @required this.path,
+    @required this.name,
+  });
 }
 
 Builder showkase(BuilderOptions options) {
@@ -37,9 +41,8 @@ class ListAllClassesBuilder implements Builder {
 
   @override
   Future<void> build(BuildStep buildStep) async {
-    // buildStep.
-    final themeVals = <_VariableModel>[];
-    final componentVals = <_VariableModel>[];
+    final themes = <_Variable>[];
+    final components = <_Variable>[];
     final pathSet = Set<String>();
 
     await for (final input in buildStep.findAssets(Glob('lib/**'))) {
@@ -55,33 +58,36 @@ class ListAllClassesBuilder implements Builder {
               if (returnTypeString == ShowkaseClassNames.component) {
                 final path = getter.location.components.first;
                 pathSet.add(path);
-                componentVals.add(
-                  _VariableModel(
-                    path,
-                    getter.displayName,
+                components.add(
+                  _Variable(
+                    path: path,
+                    name: getter.displayName,
                   ),
                 );
               } else if (returnTypeString == ShowkaseClassNames.theme) {
                 final path = getter.location.components.first;
                 pathSet.add(path);
-                themeVals.add(
-                  _VariableModel(
-                    path,
-                    getter.displayName,
+                themes.add(
+                  _Variable(
+                    path: path,
+                    name: getter.displayName,
                   ),
                 );
               }
             }
           },
         );
-      } catch (_) {
-        print(_);
+      } on NonLibraryAssetException catch (e, stackTrace) {
+        print(e);
+        print(stackTrace);
+      } catch (_error) {
+        rethrow;
       }
     }
 
     final sortedPaths = pathSet.toList()..sort();
 
-    final importMap = Map.fromEntries(
+    final importTemplateMap = Map.fromEntries(
       List.generate(
         sortedPaths.length,
         (index) {
@@ -96,29 +102,28 @@ class ListAllClassesBuilder implements Builder {
         },
       ),
     );
-    final componentArgs = componentVals.map((v) {
+    final componentArgs = components.map((v) {
       return MyShowKaseAppArg(
-        prefix: importMap[v.path].prefix,
+        prefix: importTemplateMap[v.path].prefix,
         displayName: v.name,
       );
     }).toList();
-    final themeArg = (themeVals?.isNotEmpty ?? false)
+    final themeArg = (themes?.isNotEmpty ?? false)
         ? MyShowKaseAppArg(
-            prefix: importMap[themeVals.first.path].prefix,
-            displayName: themeVals.first.name,
+            prefix: importTemplateMap[themes.first.path].prefix,
+            displayName: themes.first.name,
           )
         : null;
 
     await buildStep.writeAsString(
       _allFileOutput(buildStep),
       MainShowkaseTemplate(
-        imports: importMap.values.toList(),
+        imports: importTemplateMap.values.toList(),
         myShowkaseAppTemplate: MyShowkaseAppTemplate(
           theme: themeArg,
           components: componentArgs,
         ),
       ).toString(),
-      // classNames.join('\n'),
     );
   }
 }
