@@ -1,14 +1,31 @@
 # showkase_generator
 
-A new Flutter package.
+## Installation
+Add dependencies as following.
 
-## Getting Started
+```yaml
+dependencies:
+  showkase:
+    git:
+      url: git@github.com:HeavenOSK/flutter_showkase.git
+      path:
+        packages/showkase
+dev_dependencies:
+  build_runner: 
+  showkase_generator:
+    git:
+      url: git@github.com:HeavenOSK/flutter_showkase.git
+      path:
+        packages/showkase_generator
+```
 
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
+## Usage
+### Generate with `showkase_generator` and another generators.
+```shell script
+$ flutter pub run build_runner build 
+```
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+### Generator only with `showkase_generator`.
+```shell script
+$ flutter pub run showkase_generator
+```
