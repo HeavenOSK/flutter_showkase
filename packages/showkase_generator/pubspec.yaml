@@ -5,7 +5,9 @@ author:
 homepage:
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.8.2 <3.0.0"
+executables:
+  showkase_generator: showkase_generator
 
 dependencies:
   meta: ^1.1.8
@@ -13,4 +15,6 @@ dependencies:
   source_gen: ^0.9.6
   glob: ^1.2.0
   analyzer: ^0.39.14
-
+  args: ^1.6.0
+  build_runner: ^1.10.1
+  build_runner_core: ^6.0.1

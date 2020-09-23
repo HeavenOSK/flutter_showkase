@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
+import 'package:build_runner_core/build_runner_core.dart';
 import 'package:glob/glob.dart';
 import 'package:meta/meta.dart';
 import 'package:path/path.dart' as p;
@@ -20,7 +21,7 @@ class _Variable {
   });
 }
 
-Builder showkase(BuilderOptions options) {
+Builder showkase_generator(BuilderOptions options) {
   return ListAllClassesBuilder();
 }
 
@@ -77,11 +78,9 @@ class ListAllClassesBuilder implements Builder {
             }
           },
         );
-      } on NonLibraryAssetException catch (e, stackTrace) {
+      } catch (e, stackTrace) {
         print(e);
         print(stackTrace);
-      } catch (_error) {
-        rethrow;
       }
     }
 

@@ -6,14 +6,14 @@ targets:
         generate_for:
           exclude:
             - test
-            - example
+#            - example
 #          include:
 #            - test/integration/*
 
 builders:
-  flutter_showkase:
+  showkase_generator:
     import: "package:showkase_generator/builder.dart"
     build_extensions: { ".dart": [".showkase.dart"] }
-    builder_factories: ["showkase"]
+    builder_factories: ["showkase_generator"]
     auto_apply: dependents
     build_to: source

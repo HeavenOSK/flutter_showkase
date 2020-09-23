@@ -4,7 +4,7 @@ import 'package:showkase/showkase.dart';
 
 void main() {
   runApp(
-    MyShowkaseApp(),
+    const MyShowkaseApp(),
   );
 }
 
